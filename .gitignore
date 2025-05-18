@@ -1,0 +1,16 @@
+# Ignore build artifacts
+target/
+*.class
+*.log
+
+# Ignore IDE files
+.idea/
+*.iml
+
+# Ignore dependency directories
+.mvn/
+mvnw
+mvnw.cmd
+
+# Ignore database or environment-specific files
+application.properties
