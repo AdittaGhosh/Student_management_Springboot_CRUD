@@ -1,6 +1,9 @@
-package com.student.dao;
-import org.springframework.data.jpa.repository.JpaRepository;
-import com.student.model.Student;
+package com.student.repository;
 
-public interface StudentRepository extends JpaRepository<Student, Integer> {
+import com.student.entity.Student;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.UUID;
+
+public interface StudentRepository extends JpaRepository<Student, UUID> {
 }

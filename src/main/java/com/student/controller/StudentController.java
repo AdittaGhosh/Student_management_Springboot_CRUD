@@ -1,42 +1,56 @@
 package com.student.controller;
 
-import com.student.model.Student;
+import com.student.dto.ApiResponse;
+import com.student.dto.StudentResponseDto;
+import com.student.params.StudentCreateRequestParams;
+import com.student.params.StudentUpdateRequestParams;
 import com.student.service.StudentService;
+import com.student.utils.url.UrlStudentPaths;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
-@RequestMapping("/studentService")
-@CrossOrigin(origins = "http://localhost:8080") // Allow requests from this origin (adjust if needed)
-public class StudentController {
+@RequestMapping(UrlStudentPaths.BASE)
+public class StudentController extends BaseController {
+    private final StudentService studentService;
 
     @Autowired
-    private StudentService studentService;
-
-    @PostMapping("/saveStudent")
-    public Student saveStudent(@RequestBody Student student) {
-        return studentService.saveStudent(student);
+    public StudentController(StudentService studentService) {
+        this.studentService = studentService;
     }
 
-    @GetMapping("/getAllStudents")
-    public List<Student> getAllStudents() {
-        return studentService.getAllStudents();
+    @PostMapping
+    public ResponseEntity<ApiResponse<StudentResponseDto>> saveStudent(@Valid @RequestBody StudentCreateRequestParams params) {
+        ApiResponse<StudentResponseDto> response = studentService.saveStudent(params);
+        return buildResponse(response);
     }
 
-    @GetMapping("/getStudent/{id}")
-    public Student getStudentById(@PathVariable("id") int id) {
-        return studentService.getStudentById(id);
+    @GetMapping(UrlStudentPaths.STUDENT_LIST)
+    public ResponseEntity<ApiResponse<List<StudentResponseDto>>> getAllStudents() {
+        ApiResponse<List<StudentResponseDto>> response = studentService.getAllStudents();
+        return buildResponse(response);
     }
 
-    @PutMapping("/updateStudent")
-    public Student updateStudent(@RequestBody Student student) {
-        return studentService.updateStudent(student);
+    @GetMapping(UrlStudentPaths.BY_ID)
+    public ResponseEntity<ApiResponse<StudentResponseDto>> getStudentById(@PathVariable UUID id) {
+        ApiResponse<StudentResponseDto> response = studentService.getStudentById(id);
+        return buildResponse(response);
     }
 
-    @DeleteMapping("/deleteStudentById/{id}")
-    public void deleteStudentById(@PathVariable("id") Integer studentId) {
-        studentService.deleteStudentById(studentId);
+    @PutMapping(UrlStudentPaths.UPDATE)
+    public ResponseEntity<ApiResponse<StudentResponseDto>> updateStudent(@Valid @PathVariable UUID id, @RequestBody StudentUpdateRequestParams params) {
+        ApiResponse<StudentResponseDto> response = studentService.updateStudent(id, params);
+        return buildResponse(response);
+    }
+
+    @DeleteMapping(UrlStudentPaths.DELETE)
+    public ResponseEntity<ApiResponse<StudentResponseDto>> deleteStudent(@PathVariable UUID id) {
+        ApiResponse<StudentResponseDto> response = studentService.deleteStudent(id);
+        return buildResponse(response);
     }
 }
