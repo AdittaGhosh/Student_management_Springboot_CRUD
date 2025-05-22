@@ -1,6 +1,5 @@
 package com.student.service;
 
-import com.student.controller.BaseController;
 import com.student.dto.ApiResponse;
 import com.student.dto.StudentResponseDto;
 import com.student.entity.Student;
@@ -9,9 +8,7 @@ import com.student.mapper.StudentMapper;
 import com.student.params.StudentCreateRequestParams;
 import com.student.params.StudentUpdateRequestParams;
 import com.student.repository.StudentRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

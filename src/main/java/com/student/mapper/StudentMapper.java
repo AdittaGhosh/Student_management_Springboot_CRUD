@@ -33,7 +33,7 @@ public interface StudentMapper {
             Date date = inputFormat.parse(dob);
             return outputFormat.format(date);
         } catch (Exception e) {
-            return dob;
+            return dob; // Default to original if parsing fails
         }
     }
 }

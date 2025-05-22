@@ -1,9 +1,9 @@
 package com.student.utils.url;
 
 public interface UrlStudentPaths extends UrlBaseSupplier {
-    String BASE = API_V1 + "/students"; // Updated to align with API_V1
-    String STUDENT_LIST = "/list";
-    String BY_ID = "/{id}";
-    String UPDATE = "/{id}";
-    String DELETE = "/{id}";
+    String BASE = "/student" + "/v1";
+    String STUDENT_LIST = "/students";
+    String BY_ID = "/students/{id}";
+    String UPDATE = "/students/{id}";
+    String DELETE = "/students/{id}";
 }
